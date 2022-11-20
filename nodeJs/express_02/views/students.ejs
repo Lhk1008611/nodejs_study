@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ejs模板引擎</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px black solid;
+            font-size: 20px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        caption {
+            font-size: 25px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <% if(stus && stus.length > 0 ){ %>
+        <table>
+            <caption>列表</caption>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <% for ( const student of stus) { %>
+                    <tr>
+                        <td>
+                            <%= student.id %>
+                        </td>
+                        <td>
+                            <%= student.name %>
+                        </td>
+                        <td>
+                            <%= student.age %>
+                        </td>
+                        <td>
+                            <a onclick="return confirm('确认删除？')" href="/delete_student?id=<%= student.id %>">删除</a>
+                            <a href="/to_update?id=<%= student.id %>">修改</a>
+                        </td>
+                    </tr>
+                    <% } %>
+            </tbody>
+        </table>
+        <% } else{ %>
+            <p>列表为空</p>
+        <% } %>
+
+        <hr>
+        <form action="/add_student" method="post">
+            姓名：<input type="text" name="name"><br>
+            年龄：<input type="text" name="age"><br>
+            <button type="submit">提交</button>
+        </form>
+</body>
+
+</html>
